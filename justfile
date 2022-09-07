@@ -7,9 +7,9 @@ fetchAndMerge:
 	deno run --allow-net ./isbn2json.ts < {{infile}} | sort | sort -m - {{existingNdJson}} > {{allAll}}
 	mv {{allAll}} {{existingNdJson}}
 
-toBuffer:
-	deno run --allow-net ./isbn2json.ts < {{infile}} | sort > {{bufferFile}}
+toBuffer in=infile out=bufferFile:
+	deno run --allow-net ./isbn2json.ts < {{in}} | sort > {{out}}
 
-mergeBufferIn:
-	sort -m {{bufferFile}} {{existingNdJson}} > {{allAll}}
-	mv {{allAll}} {{existingNdJson}}
+mergeBufferIn in=bufferFile out=existingNdJson buffer=allAll:
+	sort -m {{in}} {{out}} > {{buffer}}
+	mv {{buffer}} {{out}}
